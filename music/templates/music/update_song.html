@@ -1,0 +1,42 @@
+{% extends 'music/base.html' %}
+{% block title %}All Songs{% endblock %}
+{% block songs_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'music:songs' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'favorites' %}class="active"{% endif %}><a href="{% url 'music:songs' 'favorites' %}">Favorites</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% for song in song_list %}
+
+                        <form action="" method="post">
+                        <input type="text" name="id" value="{{ song.id }}" disabled>
+                        <label>Song Title</label>
+                        <input type="text" value="{{ song.song_title }}"><br>
+                        <label>Audio File</label>
+                            <input type="file" name="file" value="{{ song.audio_file }}">
+                        <button  type="submit" name="update" class="btn btn-success">Update</button>
+                        </form>
+                         {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
